@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
     sws_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height,
                              pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height,
                              AV_PIX_FMT_YUV420P,
-                             SWS_BILINEAR,
+                             SWS_BICUBIC,
                              NULL,
                              NULL,
                              NULL);
@@ -168,10 +168,17 @@ int main(int argc, char *argv[]) {
                 pict.linesize[1] = uvPitch;
                 pict.linesize[2] = uvPitch;
 
+
+
                 // Convert the image into YUV format that SDL uses
                 sws_scale(sws_ctx, (uint8_t const *const *) pFrame->data,
                           pFrame->linesize, 0, pCodecCtx->height, pict.data,
                           pict.linesize);
+
+                fwrite(pict.data[0], (pCodecCtx->width) * (pCodecCtx->height), 1, file);
+//                fwrite(pict.data[1], 1, (pCodecCtx->width) * (pCodecCtx->height) / 4, file);
+//                fwrite(pict.data[2], 1, (pCodecCtx->width) * (pCodecCtx->height) / 4, file);
+
 
                 SDL_UpdateYUVTexture(
                         texture,
