@@ -33,7 +33,7 @@ set(CMAKE_C_STANDARD 99)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 link_directories(${PROJECT_SOURCE_DIR}/lib)
 
-set(SOURCE_FILES ffmpeg_tutorial_5.c)
+set(SOURCE_FILES src/main.c src/m3u8.c src/m3u8.h src/httpserver.c src/httpserver.c src/httpserver.h)
 
 
 add_executable(cplayer ${SOURCE_FILES})
@@ -49,6 +49,8 @@ target_link_libraries(
         ${PROJECT_SOURCE_DIR}/lib/libSDL2.dylib
         ${PROJECT_SOURCE_DIR}/lib/libswresample.dylib
         ${PROJECT_SOURCE_DIR}/lib/libswscale.dylib
+        ${PROJECT_SOURCE_DIR}/lib/libcurl.dylib
+        ${PROJECT_SOURCE_DIR}/lib/libmicrohttpd.dylib
 )
 
 #${PROJECT_SOURCE_DIR}/lib/libavcodec.a
